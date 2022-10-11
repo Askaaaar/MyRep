@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+     {% if user.is_authenticated %}
+       <h1> Hello {{user.username}}</h1>
+       <a href=" {% url 'logout' %}"> Log Out</a>
+       <br>
+     {% else %}
+       <h1> You are not logged in </h1>
+       <a href = "{% url 'login' %}" >Login </a>
+       <br>
+       <a href = "{% url 'registration' %}">Registration </a>
+       <br>
+     {% endif %}
+       <br>
+     {% for object in object_list %}
+     <img src="{{ object.image.url }}" width="250" height="250">
+     <h3><a href = "{% url 'product' object.id %}"> {{ object.title }}</a></h3>
+     <h3> {{ object.category }}</h3>
+     <h3> {{ object.price }}</h3>
+     <br>
+     {% endfor %}
+      <a href="{% url 'cart_detail' %}"> Cart</a>
+
+</body>
+</html>

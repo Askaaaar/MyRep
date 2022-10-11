@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart Detail</title>
+</head>
+<body>
+{% load cart_tag %}
+
+Total Length :: {{request.session.cart|length}}
+<br>
+Cart Detail:
+<br>
+{% for key,value in request.session.cart.items %}
+    {{'Название - '}}{{value.name}} <br> {{'Стоимость = '}} {{value.price}} <br> {{'Количество = '}}{{value.quantity}}
+<br> <img src="{{ value.image }}" width="300" height="300"> <br> Итого стоимость = {{ value.price|multiply:value.quantity }} <br>
+{% endfor %}
+<br>
+    <a href="{% url 'cart_clear' %}"> Clear Cart </a>
+<br>
+    <a href="{% url 'home' %}">Home</a>
+</body>
+</html>

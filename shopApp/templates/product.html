@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{object.title}}</title>
+    <h2><a href="{% url 'home' %}"> Home </a></h2>>
+</head>
+<body>
+     <img src="{{ object.image.url }}" width="400" height="400">
+     <h3>{{object.title}}</h3>
+     <h3>{{object.category}}</h3>
+     <h3>{{object.price}}</h3>
+      <a href="{% url 'cart_add' product.id %}">Add To Cart</a>
+
+
+
+</body>
+</html>
