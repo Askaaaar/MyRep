@@ -1,32 +1,20 @@
-<!DOCTYPE html>
-{%load static%}
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
+{% extends 'base.html' %}
+{% block content %}
 <body>
      {% if user.is_authenticated %}
        <h1> Hello {{user.username}}</h1>
-       <a href=" {% url 'logout' %}"> Log Out</a>
+                <li class = 'last'><a href=" {% url 'logout' %}"> Log Out</a></li>
        <br>
      {% else %}
        <h1> You are not logged in </h1>
-       <a href = "{% url 'login' %}" >Login </a>
+       <li class = 'last'><a href = "{% url 'login' %}" > Login </a></li>
        <br>
-       <a href = "{% url 'registration' %}">Registration </a>
+       <li class = 'last'><a href = "{% url 'registration' %}">Registration </a></li>
        <br>
      {% endif %}
        <br>
-     {% for object in object_list %}
-     <img src="{{ object.image.url }}" width="250" height="250">
-     <h3><a href = "{% url 'product' object.id %}"> {{ object.title }}</a></h3>
-     <h3> {{ object.category }}</h3>
-     <h3> {{ object.price }}</h3>
-     <br>
-     {% endfor %}
       <a href="{% url 'cart_detail' %}"> Cart</a>
-
+      <a href=" {% url 'payment' %}"> Test </a>
 </body>
-</html>
+{% endblock %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
