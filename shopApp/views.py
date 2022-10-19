@@ -6,25 +6,34 @@ from cart.cart import Cart
 import datetime
 from .models import now
 from dateutil.tz import *
+from .forms import ContactForm
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
 
 
 def homeview(request):
-    return render(request, 'home.html', {'categories': Category.objects.all()})
+    return render(request, 'home.html', {'categories': Category.objects.all(),
+                                         'products': Product.objects.all()})
 
 
 def categoryview(request, categoryid):
-    queryset = Product.objects.filter(category=categoryid),
-    return render(request, 'category.html', {'products': queryset,
+    return render(request, 'category.html', {'products': Product.objects.filter(category=categoryid),
                                              'categories': Category.objects.all()})
 
 
 def productview(request, productid):
-    return render(request, 'product.html', {'object': Product.objects.get(id=productid),
+    return render(request, 'product.html', {'products': Product.objects.get(id=productid),
                                             'categories': Category.objects.all()})
 
 
-def products(request):
-    return render(request, 'product_list.html', {'products': Product.objects.all()})
+def productListView(request):
+    return render(request, 'product_list.html', {'categories': Category.objects.all(),
+                                                 'products': Product.objects.all()})
+
+
+def companyView(request):
+    return render(request, 'company.html', {'categories': Category.objects.all(),
+                                            'products': Product.objects.all()})
 
 
 def payment(request):
@@ -40,11 +49,36 @@ def payment(request):
         user=User.objects.get(id=request.user.id))
     history.save()
     for items in product:
-        product_list = Product.objects.get(id=items)
-        history.product.add(product_list)
+        products_list = Product.objects.get(id=items)
+        history.product.add(products_list)
     cart.clear()
     print(history)
     return redirect("home")
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = "Пробное сообщение"
+            body = {
+                'Имя': form.cleaned_data['first_name'],
+                'last_name': form.cleaned_data['last_name'],
+                'email': form.cleaned_data['email_address'],
+                'message': form.cleaned_data['message'],
+            }
+            message = "\n".join(body.values())
+            try:
+                send_mail(subject, message,
+                          'os.myworld@mail.ru',
+                          ['os.myworld@mail.ru'])
+            except BadHeaderError:
+                return HttpResponse('Найден некорректный заголовок')
+            return redirect("home")
+    form = ContactForm()
+    return render(request, "contact.html", {'form': form,
+                                            'categories': Category.objects.all(),
+                                            'products': Product.objects.all()})
 
 
 @login_required(login_url="/users/login")
@@ -52,7 +86,7 @@ def cart_add(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
-    return redirect("product_list")
+    return redirect("cart_detail")
 
 
 @login_required(login_url="/users/login")

@@ -6,12 +6,6 @@ from .forms import UserRegistrationForm
 from django import forms
 
 
-# class AccountsCreateView(CreateView):
-#     form_class = UserRegistrationForm
-#     template_name = 'registration.html'
-#     success_url = reverse_lazy('login')
-
-
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)

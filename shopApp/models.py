@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractUser
+from django import forms
 
 now = datetime.datetime.now(tzlocal())
 
@@ -53,6 +54,5 @@ class History(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     total_price = models.FloatField()
     data = models.DateTimeField(now.strftime("%Y-%m-%d %H:%M:%S"), null=True)
-
 
 

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-     <img src="{{ product.image.url }}" width="250" height="250">
-     <h3><a href = "{% url 'product' product.id %}"> {{ product.title }}</a></h3>
-     <h3> {{ product.category }}</h3>
-     <h3> {{ product.price }}</h3>
+     <img src="{{ products.image.url }}" width="250" height="250">
+     <h3><a href = "{% url 'product' products.id %}"> {{ product.title }}</a></h3>
+     <h3> {{ products.category }}</h3>
+     <h3> {{ products.price }}</h3>
      <br>
      <h3><a href = "{% url 'home'  %}">Home</a></h3>
      <h3> <a href="{% url 'cart_detail' %}"> Cart</a></h3>

@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'base1.html' %}
 {% block content %}
 <body>
-    <h1>Create your account</h1>
-    <p> Please, sign up using the following form:</p>
+<div style="text-align: center;"><h1>Create your account</h1></div>
+<div style="text-align: center;"><p> Please, sign up using the following form:</p></div>
     <form action="." method="post">
-        {{ user_form.as_p }}
+        <div style="text-align: center;">{{ user_form.as_p }}</div>
         {% csrf_token %}
-        <p><input type="submit" value="Create my account"></p>
+        <div style="text-align: center;"><p><input type="submit" value="Create my account"></p></div>
     </form>
 </body>
 {% endblock %}
