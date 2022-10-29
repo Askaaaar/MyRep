@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'accountsApp.apps.AccountsappConfig',
     'cart',
     'phonenumber_field',
+    'rest_framework'
+
 ]
 
 MIDDLEWARE = [

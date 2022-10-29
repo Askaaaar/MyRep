@@ -17,6 +17,9 @@ class User(AbstractUser):
     activation_code = models.CharField(max_length=50, null=True, blank=True)
     password = models.CharField(max_length=100, null=True)
 
+    class Meta:
+        ordering = ('first_name',)
+
     def __str__(self):
         return f'{self.username} {self.last_name}'
 
@@ -41,6 +44,10 @@ class Product(models.Model):
     image = models.ImageField(null=True, upload_to='product', blank=True)
     stock = models.IntegerField()
     description = models.TextField()
+    sale = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('id',)
 
     def __str__(self):
         return self.title

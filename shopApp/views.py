@@ -122,4 +122,6 @@ def cart_clear(request):
 
 @login_required(login_url="/users/login")
 def cart_detail(request):
-    return render(request, 'cart/cart_detail.html')
+    return render(request, 'cart/cart_detail.html',
+                  {'categories': Category.objects.all(),
+                   'products': Product.objects.all()})
